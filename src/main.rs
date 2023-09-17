@@ -1,5 +1,6 @@
 mod morse_map;
 mod morse;
+//mod morse;
 
 use rocket::get;
 use rodio::source::{SineWave, Source};
@@ -22,7 +23,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a buffer to hold the audio data
     let spec = hound::WavSpec {
         channels: 1,
-        sample_rate: 44100, // Sample rate in Hz
+        sample_rate: 48000, // Sample rate in Hz
         bits_per_sample: 16,
         sample_format: SampleFormat::Int,
     };
@@ -39,6 +40,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         writer.write_sample(sample)?;
     }
 
+    for _ in 0..5000 {
+        writer.write_sample(0)?;
+    }
 
     Ok(())
 }
