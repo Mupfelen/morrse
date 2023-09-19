@@ -13,7 +13,7 @@ fn sound_file() -> &'static str {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let morse_options = MorseOptions {
-        wpm: 40,
+        wpm: 20,
         frequency: 440.0,
         channels: 1,
         sample_rate: 48000,
