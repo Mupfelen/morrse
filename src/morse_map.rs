@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-fn morse_map() -> HashMap<char, &'static str> {
+pub fn morse_map() -> HashMap<char, &'static str> {
     let mut morse_map = HashMap::new();
     morse_map.insert('a', ".-");
     morse_map.insert('b', "-...");
@@ -38,6 +38,11 @@ fn morse_map() -> HashMap<char, &'static str> {
     morse_map.insert('8', "---..");
     morse_map.insert('9', "----.");
     morse_map.insert('0', "-----");
-    morse_map.insert(' ', " ");
+    morse_map.insert('.', ".-.-.-");
+    morse_map.insert(',', "--..--");
+    morse_map.insert('!', "-.-.--");
+    morse_map.insert('?', "..--..");
+    morse_map.insert('\'', ".----.");
+    morse_map.insert(' ', "/");
     morse_map
 }

@@ -3,9 +3,7 @@ mod morse;
 //mod morse;
 
 use rocket::get;
-use rodio::source::{SineWave, Source};
-use std::time::Duration;
-use hound::{WavWriter, SampleFormat};
+use crate::morse::MorseOptions;
 
 #[get("/sound/file")]
 fn sound_file() -> &'static str {
@@ -14,35 +12,17 @@ fn sound_file() -> &'static str {
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let frequency = 440.0; // Frequency in Hertz (e.g., A4 note)
-    let duration = Duration::new(1, 0); // 1 second duration
-    let sine_wave = SineWave::new(frequency)
-        .take_duration(duration)
-        .amplify(0.5); // Adjust amplitude as needed
-
-    // Create a buffer to hold the audio data
-    let spec = hound::WavSpec {
+    let morse_options = MorseOptions {
+        wpm: 40,
+        frequency: 440.0,
         channels: 1,
-        sample_rate: 48000, // Sample rate in Hz
-        bits_per_sample: 16,
-        sample_format: SampleFormat::Int,
+        sample_rate: 48000,
+        volume: 0.5
     };
-    let mut buffer: Vec<i16> = Vec::new();
 
-    // Buffer the audio data
-    for sample in sine_wave.into_iter() {
-        buffer.push((sample * i16::MAX as f32) as i16);
-    }
-
-    // Write the audio data to a WAV file
-    let mut writer = WavWriter::create("sine_wave.wav", spec)?;
-    for sample in buffer {
-        writer.write_sample(sample)?;
-    }
-
-    for _ in 0..5000 {
-        writer.write_sample(0)?;
-    }
-
+    let message = "Hello, world!";
+    let code = morse::translate_message(message, &morse_map::morse_map());
+    let buffer = morse::generate_morse_audio(code, &morse_options);
+    morse::save_audio(buffer, "morse.wav", &morse_options)?;
     Ok(())
 }
