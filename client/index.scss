@@ -1,0 +1,64 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  background: linear-gradient(to bottom right, #444444, #009a5b);
+  font-size: 1.5rem;
+}
+
+main {
+  color: #fff6d5;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.logo {
+  height: 20em;
+}
+
+.counterBtn {
+    // background: none;
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 60px;
+    width: 60px;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: inherit;
+    outline: none;
+    padding: 0;
+}
+
+.heart:after {
+  content: "❤️";
+
+  font-size: 1.75em;
+}
+
+#container {
+  height: 50%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont {
+  margin-left: 2px;
+  margin-right: 2px;
+  display: inline-block;
+  text-align: center;
+}
+
+h1 + .subtitle {
+  display: block;
+  margin-top: -1em;
+}
