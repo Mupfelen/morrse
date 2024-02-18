@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use rodio::source::{SineWave, Source};
 use std::time::Duration;
+use clap::Parser;
 use hound::{SampleFormat, WavWriter};
 use crate::morse_map;
 
@@ -17,7 +18,7 @@ pub fn translate_message(message: &str, morse_map: &HashMap<char, &'static str>)
     for c in message.to_lowercase().chars() {
         let morse_char = morse_map.get(&c).unwrap_or(&"");
         morse_message.push_str(morse_char);
-        morse_message.push_str(" ");
+        morse_message.push(' ');
     }
     morse_message
 }
@@ -200,6 +201,8 @@ pub fn generate_morse_audio(code: String, options: &MorseOptions) -> Vec<i16> {
     buffer
 }
 
+
+
 pub fn save_audio(buffer: Vec<i16>, file_name: &str, options: &MorseOptions) -> Result<(), Box<dyn std::error::Error>> {
     let spec = hound::WavSpec {
         channels: options.channels,
@@ -207,7 +210,7 @@ pub fn save_audio(buffer: Vec<i16>, file_name: &str, options: &MorseOptions) -> 
         bits_per_sample: 16,
         sample_format: SampleFormat::Int,
     };
-
+    
     let mut writer = WavWriter::create(file_name, spec)?;
     for sample in buffer {
         writer.write_sample(sample)?;
