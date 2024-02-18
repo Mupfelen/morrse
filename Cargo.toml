@@ -6,8 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-fundsp = "0.15.0"
+fundsp = "0.16.0"
 hound = "3.5.0"
-
-rocket = "0.5.0-rc.3"
+clap = { version = "4.5.1", features = ["derive"] }
+rocket = "0.5.0"
 rodio = "0.17.1"
